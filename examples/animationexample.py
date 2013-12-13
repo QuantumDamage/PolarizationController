@@ -20,24 +20,24 @@ def init():
     
 # animation function.  This is called sequentially
 
-def animate(i):
-	
-	f = urllib2.urlopen('http://data.mtgox.com/api/1/BTCPLN/depth/fetch')
-	json_string = f.read()
-	parsed_json = json.loads(json_string)
-	
-	
-	x.append(i)
-	y.append(parsed_json['return']['asks'][0]['price'])
-	
-	
-	print x, y
-	line.set_data(x, y)
+	def animate(i):
+		
+		f = urllib2.urlopen('http://data.mtgox.com/api/1/BTCPLN/depth/fetch')
+		json_string = f.read()
+		parsed_json = json.loads(json_string)
+		
+		
+		x.append(i)
+		y.append(parsed_json['return']['asks'][0]['price'])
+		
+		
+		print x, y
+		line.set_data(x, y)
 
-	ax.set_autoscale_on(True)
-	ax.autoscale_view(True,True,True)
-	ax.relim()
-	return line,
+		ax.set_autoscale_on(True)
+		ax.autoscale_view(True,True,True)
+		ax.relim()
+		return line,
 
 
 

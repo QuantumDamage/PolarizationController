@@ -1,6 +1,8 @@
+import time
 import sys
 import matplotlib.pyplot as plt
 from matplotlib import animation
+import subprocess
 
 
 TIMEOUT_SEC = 0.250
@@ -17,7 +19,7 @@ def init():
     line.set_data([], [])
     return line,
     
-def animate():
+def animate(i):
         
 	# create and call process, store output and error in "o" and "e"
 	p = subprocess.Popen(args, stdout = subprocess.PIPE)
@@ -28,9 +30,14 @@ def animate():
 	
 	splitted = o.split(";")
 	
+	
 	x.append(time.time())
 	y.append(splitted[0])
 	
+	length_of_list = len(x)
+	if length_of_list > 100:
+		x.pop(0)
+		y.pop(0)
 	
 	print x, y
 	line.set_data(x, y)
@@ -39,3 +46,8 @@ def animate():
 	ax.autoscale_view(True,True,True)
 	ax.relim()
 	return line,
+
+# call the animator.  blit=True means only re-draw the parts that have changed.
+anim = animation.FuncAnimation(fig, animate, init_func=init, interval=250, blit=True)
+plt.grid()
+plt.show()
