@@ -1,5 +1,7 @@
 import time
 import sys
+import matplotlib
+matplotlib.use("tkagg")
 import matplotlib.pyplot as plt
 from matplotlib import animation
 import subprocess
@@ -7,9 +9,16 @@ import numpy as np
 import random
 
 
+print matplotlib.get_backend()
+
+
+
+print matplotlib.get_backend()
+
+
 
 TIMEOUT_SEC = 0.250
-#args = sys.argv[1:]
+args = sys.argv[1:]
 starting_time = time.time()
 x, y = [], []
 
@@ -24,15 +33,15 @@ ax.grid()
 
 
 while True:
-	"""# create and call process, store output and error in "o" and "e"
-	p = subprocess.Popen(args, stdout = subprocess.PIPE)
-	o, e = p.communicate()
 	
-	splitted = o.split(";")"""
+
 	summe = 0
 	for cnt in range(0, 4):
-		splitted=[10*random.random()]
-		summe = summe + splitted[0] 
+		# create and call process, store output and error in "o" and "e"
+		p = subprocess.Popen(args, stdout = subprocess.PIPE)
+		o, e = p.communicate()
+		splitted = o.split(";")
+		summe = summe + int(splitted[0]) 
 		time.sleep(0.25)
 	
 	x.append(time.time()-starting_time)
